@@ -17,6 +17,9 @@ run_step "Installing Docker" \
 run_step "Installing Tailscale" \
     "$ROOT_DIR/bootstrap/install-tailscale.sh"
 
+run_step "Installing Restic" \
+    "$ROOT_DIR/bootstrap/install-restic.sh"
+
 run_step "Installing nginx" \
     "$ROOT_DIR/bootstrap/install-nginx.sh"
 
