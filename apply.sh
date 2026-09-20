@@ -11,6 +11,7 @@ run_step() {
     "$2"
 }
 
+# General system configuration
 run_step "Installing Docker" \
     "$ROOT_DIR/bootstrap/install-docker.sh"
 
@@ -26,8 +27,12 @@ run_step "Installing nginx" \
 run_step "Installing Certbot" \
     "$ROOT_DIR/bootstrap/install-certbot.sh"
 
-run_step "Configuring certificates" \
+run_step "Configuring certs" \
     "$ROOT_DIR/bootstrap/configure-certs.sh"
+
+# Docker apps
+run_step "Configuring Vaultwarden" \
+    "$ROOT_DIR/bootstrap/configure-vaultwarden.sh"
 
 echo
 echo "Home server configuration applied successfully."

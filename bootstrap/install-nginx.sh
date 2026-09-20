@@ -1,22 +1,31 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+SOURCE_DIR="nginx/sites"
+DEST_DIR="/etc/nginx/sites-available"
+ENABLED_DIR="/etc/nginx/sites-enabled"
+
 sudo apt update
 sudo apt install -y nginx
 
-SOURCE="nginx/sites/cockpit.conf"
-DEST="/etc/nginx/sites-available/cockpit"
-
 changed=false
 
-if ! sudo cmp -s "$SOURCE" "$DEST"; then
-    sudo cp "$SOURCE" "$DEST"
-    changed=true
-fi
+for source in "$SOURCE_DIR"/*.conf; do
+    [ -e "$source" ] || continue
 
-sudo ln -sfn \
-    /etc/nginx/sites-available/cockpit \
-    /etc/nginx/sites-enabled/cockpit
+    filename="$(basename "$source")"
+    site_name="${filename%.conf}"
+
+    dest="$DEST_DIR/$site_name"
+    enabled="$ENABLED_DIR/$site_name"
+
+    if ! sudo cmp -s "$source" "$dest"; then
+        sudo cp "$source" "$dest"
+        changed=true
+    fi
+
+    sudo ln -sfn "$dest" "$enabled"
+done
 
 sudo nginx -t
 
