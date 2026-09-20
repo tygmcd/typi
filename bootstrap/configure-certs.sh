@@ -4,7 +4,7 @@ set -euo pipefail
 CREDENTIALS_FILE="/etc/letsencrypt/secrets/cloudflare.ini"
 CERT_NAME="tygmcd.com"
 
-if [ ! -f "$CREDENTIALS_FILE" ]; then
+if ! sudo test -f "$CREDENTIALS_FILE"; then
     echo "Missing Cloudflare credentials: $CREDENTIALS_FILE"
     exit 1
 fi
