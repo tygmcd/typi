@@ -15,6 +15,14 @@ if [ ! -f "$PASSWORD_FILE" ]; then
     exit 1
 fi
 
+echo "Refreshing package inventory..."
+
+dpkg --get-selections \
+  | sudo tee /var/backups/package-list.txt > /dev/null
+
+snap list \
+  | sudo tee /var/backups/snap-list.txt > /dev/null
+
 echo "Starting backup..."
 
 sudo restic \
@@ -24,7 +32,11 @@ sudo restic \
     /srv \
     /home/tyler/repos \
     /etc/nginx \
-    /etc/systemd/system
+    /etc/systemd/system \
+    /etc/fstab \
+    /etc/netplan \
+    /etc/letsencrypt \
+    /var/backups
 
 echo "Backup complete."
 
