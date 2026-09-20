@@ -15,6 +15,19 @@ if [ ! -f "$PASSWORD_FILE" ]; then
     exit 1
 fi
 
+# Backup databases
+echo "Backing up Vaultwarden database..."
+
+VAULTWARDEN_DATA="/srv/vaultwarden/data"
+VAULTWARDEN_BACKUP="/srv/vaultwarden/backup"
+
+sudo mkdir -p "$VAULTWARDEN_BACKUP"
+
+sudo sqlite3 \
+    "$VAULTWARDEN_DATA/db.sqlite3" \
+    ".backup '$VAULTWARDEN_BACKUP/db.sqlite3'"
+
+# Refresh and freeze package inventory
 echo "Refreshing package inventory..."
 
 dpkg --get-selections \

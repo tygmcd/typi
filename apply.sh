@@ -27,6 +27,9 @@ run_step "Installing nginx" \
 run_step "Installing Certbot" \
     "$ROOT_DIR/bootstrap/install-certbot.sh"
 
+run_step "Installing SQLite" \
+    "$ROOT_DIR/bootstrap/install-sqlite.sh"
+
 run_step "Configuring certs" \
     "$ROOT_DIR/bootstrap/configure-certs.sh"
 

@@ -25,6 +25,7 @@ for source in "$SOURCE_DIR"/*.conf; do
     fi
 
     sudo ln -sfn "$dest" "$enabled"
+    echo "Enabled site: $site_name"
 done
 
 sudo nginx -t
