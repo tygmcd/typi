@@ -33,8 +33,14 @@ run_step "Installing SQLite" \
 run_step "Installing UFW" \
     "$ROOT_DIR/bootstrap/install-ufw.sh"
 
+run_step "Installing Fail2Ban" \
+    "$ROOT_DIR/bootstrap/install-fail2ban.sh"
+
 run_step "Configuring certs" \
     "$ROOT_DIR/bootstrap/configure-certs.sh"
+
+run_step "Configuring automatic security updates" \
+    "$ROOT_DIR/bootstrap/configure-auto-updates.sh"
 
 # Docker apps
 run_step "Configuring Vaultwarden" \
