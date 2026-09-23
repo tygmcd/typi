@@ -30,6 +30,9 @@ run_step "Installing Certbot" \
 run_step "Installing SQLite" \
     "$ROOT_DIR/bootstrap/install-sqlite.sh"
 
+run_step "Installing UFW" \
+    "$ROOT_DIR/bootstrap/install-ufw.sh"
+
 run_step "Configuring certs" \
     "$ROOT_DIR/bootstrap/configure-certs.sh"
 
